@@ -10,7 +10,7 @@ import org.springframework.kafka.core.ProducerFactory;
 public class CardProducerConfig {
 
     @Bean
-    public KafkaTemplate<String, Card> cardTemplate(ProducerFactory<String, Card> factory) {
+    public KafkaTemplate<String, String> cardTemplate(ProducerFactory<String, String> factory) {
         return new KafkaTemplate<>(factory);
     }
 

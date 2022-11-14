@@ -19,20 +19,25 @@ public class CardService {
 
     private final CardRepository cardRepository;
 
-    public Card save() {
-        log.info(">> init save card");
-        Card card = Card.builder()
-                .numberCard(findAndValidNumberCard())
-                .passwordCard(Integer.parseInt(ConstantsDefaultValueUtils.generatedRandomNumber(4)))
-                .balanceCard(ConstantsDefaultValueUtils.default_balance_value)
-                .build();
-        log.info(">> save [card={}]", card);
+    public Card save(Card card) {
+        log.info(">> init save [card={}]", card);
         card = cardRepository.save(card);
-        log.info("<< save [id={}]", card.getNumberCard());
+        log.info("<< save finished [id={}]", card.getNumberCard());
         return card;
     }
 
-    private Long findAndValidNumberCard() {
+    public Optional<Card> findByNumberCard(Long numberCard) {
+        log.info(">> findByNumberCard [numberCard={}]", numberCard);
+        Optional<Card> card = cardRepository.findByNumberCard(numberCard);
+        log.info("<< findByNumberCard [card={}]", card);
+        return card;
+    }
+
+    public void update(Card card) {
+        cardRepository.save(card);
+    }
+
+    public Long findAndValidNumberCard() {
         boolean numberValid = true;
         Long numberCard = 0L;
         while (numberValid) {
